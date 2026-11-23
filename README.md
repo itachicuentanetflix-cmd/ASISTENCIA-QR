@@ -1,18 +1,18 @@
 # Asistencia QR (PWA) — Next.js + Neon + Vercel
 
-Control de asistencia escolar con QR y reconocimiento facial. Funciona en iPhone y Android, instalable.
+Asistencia escolar con QR y reconocimiento facial para iPhone y Android (instalable).
+- **Administrador** (variables ADMIN_USER / ADMIN_PASS): solo gestiona profesores, códigos, descargas y limpieza de datos.
+- **Profesores**: cada uno tiene sus propios alumnos, QR, rostros, horario y Excel. Nadie ve los alumnos de otro profesor.
 
-## Instalación rápida
-1. **Neon**: crea un proyecto → SQL Editor → ejecuta `database.sql` y luego `seed_alumnos_3F.sql`. Copia el *Connection string*.
-2. **VS Code**: abre esta carpeta, en la terminal ejecuta `npm install`.
-3. Copia `.env.example` a `.env.local` y completa `DATABASE_URL`, `JWT_SECRET`, `ADMIN_USER`, `ADMIN_PASS`.
-4. Prueba local: `npm run dev` → http://localhost:3000 (la cámara en el celular requiere HTTPS: prueba en Vercel).
-5. **GitHub**: `git init`, `git add .`, `git commit -m "inicio"`, crea el repo y súbelo (`git push`).
-6. **Vercel**: Add New → Project → importa el repo → Environment Variables (las 4 del paso 3) → Deploy.
-7. Abre la URL en el celular. iPhone: Safari → Compartir → "Agregar a pantalla de inicio". Android: Chrome → "Instalar app".
+## Instalación nueva
+1. **Neon** → SQL Editor → ejecuta `database.sql`. Copia el *Connection string*.
+2. VS Code: `npm install`. Copia `.env.example` a `.env.local` y completa las 4 variables.
+3. Sube a GitHub y despliega en Vercel con las mismas 4 variables.
+4. Entra como admin → Profesores → genera un código → el profesor se registra con ese código.
+5. Cuando "deysi" ya esté registrada, ejecuta `seed_alumnos_3F.sql` para cargar sus 33 alumnos (23 H y 10 M) y su salón.
 
-## Uso
-- Admin: entra con `ADMIN_USER`/`ADMIN_PASS` → pestaña 🛡️ Admin (códigos, usuarios, Excel, borrar mes, año).
-- Alumnos → "Registrar rostro" (un alumno a la vez) y luego 🙂 Cámara facial en Escanear.
-- Alumnos → "Tarjetas QR" para imprimir. El contenido del QR es `ASIST|3°F|Apellidos, Nombres` (igual al de tus QR actuales).
-# ASISTENCIA-QR
+## Si ya tenías la versión 1 instalada
+Ejecuta `migracion.sql` (después de que "deysi" se registre) y vuelve a desplegar.
+
+## Uso del reconocimiento facial
+Alumnos → "Registrar rostros": automático, uno tras otro (guarda también la foto de perfil). Luego Asistencia → Facial.

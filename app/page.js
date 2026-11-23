@@ -26,7 +26,7 @@ export default function Home() {
       <form className="card" onSubmit={go}>
         <img className="logo" src="/icon-192.png" alt="" />
         <h1 style={{ textAlign: 'center' }}><span className="grad">Asistencia QR</span></h1>
-        <p className="mut" style={{ textAlign: 'center', margin: '4px 0 18px' }}>Control escolar inteligente · QR y reconocimiento facial</p>
+        <p className="mut" style={{ textAlign: 'center', margin: '4px 0 18px' }}>Asistencia escolar inteligente · QR y reconocimiento facial</p>
         <div className="tabs">
           <button type="button" className={tab === 'in' ? 'on' : ''} onClick={() => { setTab('in'); setErr(''); }}>Iniciar sesión</button>
           <button type="button" className={tab === 'up' ? 'on' : ''} onClick={() => { setTab('up'); setErr(''); }}>Registrarse</button>

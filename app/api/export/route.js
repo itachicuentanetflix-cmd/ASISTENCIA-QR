@@ -14,15 +14,18 @@ const thin = { style: 'thin', color: { argb: 'FFB0B7C9' } };
 const box = { top: thin, left: thin, bottom: thin, right: thin };
 
 export async function GET(req) {
-  if (!(await getSession())) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+  const s = await getSession();
+  if (!s) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   const u = new URL(req.url);
-  const cfg = await getConfig();
+  const owner = s.role === 'admin' ? +u.searchParams.get('owner') : s.id;
+  if (!owner) return NextResponse.json({ error: 'Elige un profesor' }, { status: 400 });
+  const cfg = await getConfig(owner);
   const anio = +u.searchParams.get('anio') || +cfg.anio;
   const mes = Math.min(12, Math.max(1, +u.searchParams.get('mes') || 1));
   const d1 = `${anio}-${pad(mes)}-01`;
   const d2 = mes === 12 ? `${anio + 1}-01-01` : `${anio}-${pad(mes + 1)}-01`;
-  const students = await sql`select id, apellidos, nombres, gender from students order by gender, apellidos, nombres`;
-  const recs = await sql`select student_id, to_char(fecha,'YYYY-MM-DD') as fecha, estado from attendance where fecha >= ${d1}::date and fecha < ${d2}::date`;
+  const students = await sql`select id, apellidos, nombres, gender from students where owner_id=${owner} order by gender, apellidos, nombres`;
+  const recs = await sql`select a.student_id, to_char(a.fecha,'YYYY-MM-DD') as fecha, a.estado from attendance a join students st on st.id=a.student_id where st.owner_id=${owner} and a.fecha >= ${d1}::date and a.fecha < ${d2}::date`;
   const map = {}; const held = new Set();
   recs.forEach(r => { map[`${r.student_id}|${r.fecha}`] = r.estado; held.add(r.fecha); });
 
