@@ -15,3 +15,4 @@ Control de asistencia escolar con QR y reconocimiento facial. Funciona en iPhone
 - Admin: entra con `ADMIN_USER`/`ADMIN_PASS` → pestaña 🛡️ Admin (códigos, usuarios, Excel, borrar mes, año).
 - Alumnos → "Registrar rostro" (un alumno a la vez) y luego 🙂 Cámara facial en Escanear.
 - Alumnos → "Tarjetas QR" para imprimir. El contenido del QR es `ASIST|3°F|Apellidos, Nombres` (igual al de tus QR actuales).
+# ASISTENCIA-QR
